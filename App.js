@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchabkeOpacity, FlatList } from 'react-native';
 import Header from './components/header';
 
 export default function App() {
@@ -28,9 +28,7 @@ export default function App() {
           />
       </View>
       <View style={styles.buttonStyle}>
-      <Button 
-        title='Reset'
-        onPress={clickHandler}/>
+        <Text style={styles.buttonText}>Reset</Text>
       </View>
     </View>
   );
@@ -40,15 +38,6 @@ const styles = StyleSheet.create({
   fullPageContainer:{
     flex: 1,
     backgroundColor: '#fff',
-  },
-  headerContainer:{
-    flex:1,
-    alignItems: 'center',
-  },
-  headerText: {
-    fontSize: 36,
-    marginTop: 30,
-    color: '#fff'
   },
   amountTrackerString:{
     marginTop: 30,
@@ -61,10 +50,6 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 30,
   },
-  bottomText:{
-    color: '#fff',
-    fontSize: 20,
-  },
   listText:{
     color:'black',
     fontSize: 24,
@@ -72,7 +57,19 @@ const styles = StyleSheet.create({
     marginLeft:25
   },
   buttonStyle:{
-    marginBottom:40,
-    padding:30,
+    padding: 25,
+    borderRadius:20,
+    backgroundColor:'#be0000',
+    bottom:0,
+    position:'absolute',
+    right:30,
+    left:30,
+    margin:20
+  },
+  buttonText:{
+    textAlign:'center',
+    color:'#fff',
+    fontSize:14,
+    fontWeight:'bold'
   }
 });
