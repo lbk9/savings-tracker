@@ -20,15 +20,18 @@ export default function App() {
         <TextInput style={styles.input}
           placeholder='Savings...'
           keyboardType='number-pad'/>
+        <Text style={styles.amountTrackerString}>{total}</Text>
+        </View>
+        <View style={styles.listContainer}>
         <FlatList
           data={savings}
           renderItem={({ item }) => (
             <Text style={styles.listText}>{item.amount}</Text>
             )}
           />
-      </View>
+        </View>
       <View style={styles.buttonStyle}>
-        <Text style={styles.buttonText}>Reset</Text>
+        <Text style={styles.buttonText}>RESET</Text>
       </View>
     </View>
   );
@@ -40,15 +43,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   amountTrackerString:{
-    marginTop: 30,
-    color: '#fff',
+    top:40,
+    width:'30%',
+    textAlign:'center',
+    position:'absolute',
+    right:0,
+    color: 'black',
     fontSize: 28,
   },
   input: {
+    position:'absolute',
+    width:'70%',
+    top:30,
+    left:10,
     borderWidth: 5,
     borderColor: 'grey',
     padding: 15,
-    margin: 30,
+  },
+  listContainer:{
+    marginTop:130
   },
   listText:{
     color:'black',
@@ -70,6 +83,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color:'#fff',
     fontSize:14,
-    fontWeight:'bold'
+    fontWeight:'bold',
+    fontFamily:'monospace'
   }
 });
