@@ -1,25 +1,40 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchabkeOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import Header from './components/header';
+import AddSaving from './components/addSaving';
 
 export default function App() {
-  const [total, setTotal] = useState(0.00);
-  const [savings, setSaving] = useState([
-    { amount: '2.90', key: '1' },
-    { amount: '4.40', key: '2'}
-  ]);
+  const [total, setTotal] = useState(40.00);
+  const [savings, setSaving] = useState([]);
 
-  const clickHandler = () => {
+  const submitHandler = (amount) => {
+    if(amount.length >= 1)
+    {
+      setSaving((prevSavings) => {
+        return [
+          {amount: amount, key: Math.random().toString()},
+          ...prevSavings
+        ];
+      });
+    }
+    else
+    {
+      Alert.alert('Hold on', 'You need to actually tell me an amount..', [
+        {text:'Got it'}
+      ])
+    }
+  }
+
+  const clearScreen = () => {
+    setSaving({savings:[]});
     setTotal(0);
-    setSaving.length = 0;
-  };
+  }
+
   return (
     <View style={styles.fullPageContainer}>
       <Header />
       <View>
-        <TextInput style={styles.input}
-          placeholder='Savings...'
-          keyboardType='number-pad'/>
+        <AddSaving submitHandler={submitHandler}/>
         <Text style={styles.amountTrackerString}>{total}</Text>
         </View>
         <View style={styles.listContainer}>
@@ -30,9 +45,11 @@ export default function App() {
             )}
           />
         </View>
-      <View style={styles.buttonStyle}>
+      <TouchableOpacity
+        style={styles.buttonStyle}
+        onPress={() => clearScreen()}>
         <Text style={styles.buttonText}>RESET</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -43,22 +60,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   amountTrackerString:{
-    top:40,
-    width:'30%',
-    textAlign:'center',
-    position:'absolute',
-    right:0,
+    top:120,
+    left:10,
     color: 'black',
     fontSize: 28,
-  },
-  input: {
-    position:'absolute',
-    width:'70%',
-    top:30,
-    left:10,
-    borderWidth: 5,
-    borderColor: 'grey',
-    padding: 15,
   },
   listContainer:{
     marginTop:130
@@ -67,12 +72,20 @@ const styles = StyleSheet.create({
     color:'black',
     fontSize: 24,
     padding: 5,
-    marginLeft:25
+    textAlign:'center',
+    marginLeft:50,
+    marginRight:50,
+    marginTop:15,
+    paddingTop:10,
+    borderRadius:1,
+    borderWidth:1,
+    borderColor:'#9e1b7c',
+    borderStyle:'dashed'
   },
   buttonStyle:{
     padding: 25,
     borderRadius:20,
-    backgroundColor:'#be0000',
+    backgroundColor:'grey',
     bottom:0,
     position:'absolute',
     right:30,
